@@ -1,32 +1,131 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>期货价格监测系统 - 登录</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#00B42A',
+                        warning: '#FF7D00',
+                        danger: '#F53F3F',
+                        info: '#86909C',
+                        light: '#F2F3F5',
+                        dark: '#1D2129',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .bg-grid {
+                background-image: linear-gradient(to right, rgba(156, 163, 175, 0.1) 1px, transparent 1px),
+                                  linear-gradient(to bottom, rgba(156, 163, 175, 0.1) 1px, transparent 1px);
+                background-size: 20px 20px;
+            }
+            .animate-fade-in {
+                animation: fadeIn 0.5s ease-in-out;
+            }
+            .shadow-custom {
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
-<body>
-  <h2>Login</h2>
-  <form method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-
-    <button type="submit">Login</button>
-  </form>
-
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <ul>
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
+<body class="font-inter bg-gray-50 text-gray-800 min-h-screen flex items-center justify-center bg-grid">
+    <div class="w-full max-w-md px-6 py-8 bg-white rounded-2xl shadow-custom transform transition-all duration-500 hover:shadow-lg">
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
+                <i class="fa-solid fa-chart-line text-primary text-2xl"></i>
+            </div>
+            <h2 class="text-2xl font-bold text-gray-800">期货价格监测系统</h2>
+            <p class="text-gray-500 mt-2">请登录以访问监测数据</p>
+        </div>
+        
+        {% if error %}
+        <div class="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 animate-fade-in">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <i class="fa-solid fa-exclamation-circle"></i>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm font-medium">{{ error }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <form method="POST" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 mb-1">用户名</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-user text-gray-400"></i>
+                    </div>
+                    <input type="text" name="username" id="username" required
+                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
+                        placeholder="请输入用户名">
+                </div>
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">密码</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-lock text-gray-400"></i>
+                    </div>
+                    <input type="password" name="password" id="password" required
+                        class="pl-10 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
+                        placeholder="请输入密码">
+                </div>
+            </div>
+            
+            <div>
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-300 transform hover:scale-[1.02]">
+                    <i class="fa-solid fa-sign-in-alt mr-2"></i>
+                    登录
+                </button>
+            </div>
+        </form>
+        
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-500">
+                <span class="text-primary font-medium">提示:</span> 默认用户名和密码均为 admin
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 添加表单提交动画
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const button = this.querySelector('button[type="submit"]');
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> 登录中...';
+            
+            // 防止多次提交
+            setTimeout(() => {
+                button.disabled = false;
+                button.innerHTML = '<i class="fa-solid fa-sign-in-alt mr-2"></i> 登录';
+            }, 3000);
+        });
+    </script>
 </body>
-
-</html>
+</html>    

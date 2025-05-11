@@ -1,11 +1,13 @@
 import akshare as ak
 import pandas as pd
 import time
-import threading, random
+import threading
 import json
-from flask import Flask, render_template, request, jsonify, session
+import hashlib
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_socketio import SocketIO, emit
 from datetime import datetime
+import random  # 用于模拟价格数据
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your-secret-key-here'
@@ -47,6 +49,19 @@ monitoring_config = {
 
 # 预警历史
 alert_history = []
+
+# 用户账户
+users = {
+    "admin": hashlib.sha256("1234".encode()).hexdigest()  # 密码哈希值
+}
+
+# 身份验证装饰器
+def login_required(f):
+    def decorated_function(*args, **kwargs):
+        if 'username' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # ATR计算函数（示例实现，需根据实际需求完善）
 def calculate_atr(symbol, timeframe='daily', period=14):
@@ -250,15 +265,39 @@ def add_alert_history(instrument_name, alert_type):
         alert_history.pop()
 
 # 路由
-@app.route('/')
+@app.route('/', endpoint='index')  # 明确指定端点名称为'index'
+@login_required
 def index():
     return render_template('index.html', instruments=futures_instruments, config=monitoring_config)
 
-@app.route('/api/instruments', methods=['GET'])
+@app.route('/login', methods=['GET', 'POST'], endpoint='login')  # 明确指定端点名称为'login'
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # 验证用户名和密码
+        if username in users and users[username] == hashlib.sha256(password.encode()).hexdigest():
+            session['username'] = username
+            return redirect(url_for('index'))  # 现在可以正确解析'index'端点
+        else:
+            return render_template('login.html', error='用户名或密码错误')
+    
+    return render_template('login.html')
+
+@app.route('/logout', endpoint='logout')  # 明确指定端点名称为'logout'
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('login'))  # 明确指定端点名称    
+
+# 明确指定端点名称，避免冲突
+@app.route('/api/instruments', methods=['GET'], endpoint='api_instruments')
+@login_required
 def get_instruments():
     return jsonify(futures_instruments)
 
-@app.route('/api/config', methods=['GET', 'POST'])
+@app.route('/api/config', methods=['GET', 'POST'], endpoint='api_config')
+@login_required
 def config():
     if request.method == 'POST':
         global monitoring_config
@@ -266,7 +305,8 @@ def config():
         return jsonify({"status": "success", "config": monitoring_config})
     return jsonify(monitoring_config)
 
-@app.route('/api/update_monitor_price', methods=['POST'])
+@app.route('/api/update_monitor_price', methods=['POST'], endpoint='api_update_monitor_price')
+@login_required
 def update_monitor_price():
     data = request.json
     index = data.get('index')
@@ -277,7 +317,8 @@ def update_monitor_price():
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "无效的索引"})
 
-@app.route('/api/toggle_price_monitor', methods=['POST'])
+@app.route('/api/toggle_price_monitor', methods=['POST'], endpoint='api_toggle_price_monitor')
+@login_required
 def toggle_price_monitor():
     data = request.json
     index = data.get('index')
@@ -288,7 +329,8 @@ def toggle_price_monitor():
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "无效的索引"})
 
-@app.route('/api/update_atr_direction', methods=['POST'])
+@app.route('/api/update_atr_direction', methods=['POST'], endpoint='api_update_atr_direction')
+@login_required
 def update_atr_direction():
     data = request.json
     index = data.get('index')
@@ -299,7 +341,8 @@ def update_atr_direction():
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "无效的索引"})
 
-@app.route('/api/toggle_atr_monitor', methods=['POST'])
+@app.route('/api/toggle_atr_monitor', methods=['POST'], endpoint='api_toggle_atr_monitor')
+@login_required
 def toggle_atr_monitor():
     data = request.json
     index = data.get('index')
@@ -310,7 +353,8 @@ def toggle_atr_monitor():
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "无效的索引"})
 
-@app.route('/api/update_pattern_direction', methods=['POST'])
+@app.route('/api/update_pattern_direction', methods=['POST'], endpoint='api_update_pattern_direction')
+@login_required
 def update_pattern_direction():
     data = request.json
     index = data.get('index')
@@ -321,7 +365,8 @@ def update_pattern_direction():
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "无效的索引"})
 
-@app.route('/api/toggle_pattern_monitor', methods=['POST'])
+@app.route('/api/toggle_pattern_monitor', methods=['POST'], endpoint='api_toggle_pattern_monitor')
+@login_required
 def toggle_pattern_monitor():
     data = request.json
     index = data.get('index')
@@ -332,14 +377,19 @@ def toggle_pattern_monitor():
         return jsonify({"status": "success"})
     return jsonify({"status": "error", "message": "无效的索引"})
 
-@app.route('/api/alerts', methods=['GET'])
+@app.route('/api/alerts', methods=['GET'], endpoint='api_alerts')
+@login_required
 def get_alerts():
     return jsonify(alert_history)
 
 # SocketIO事件
 @socketio.on('connect')
 def handle_connect():
-    emit('initial_data', {'instruments': futures_instruments, 'config': monitoring_config})
+    if 'username' in session:
+        emit('initial_data', {'instruments': futures_instruments, 'config': monitoring_config})
+    else:
+        # 未登录用户断开连接
+        disconnect()
 
 if __name__ == '__main__':
     # 启动监测线程
@@ -348,4 +398,5 @@ if __name__ == '__main__':
     monitoring_thread.start()
     
     # 启动Flask应用
+    # socketio.run(app, debug=True, host='0.0.0.0', port=5000)    
     socketio.run(app, debug=True, host='192.168.31.228', port=5000)    
