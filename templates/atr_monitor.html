@@ -31,16 +31,16 @@
                     <th>Monitoring Direction</th>
                     <th>Monitoring Switch</th>
                 </tr>
-                {% for symbol, data in atr_data.items() %}
+                {% for symbol, data in futures_data.items() %}
                 <tr>
                     <td>{{ symbol }}</td>
                     <td>
                         <select name="direction_{{ symbol }}">
-                            <option value="Long" {% if data.direction == 'Long' %}selected{% endif %}>Long</option>
-                            <option value="Short" {% if data.direction == 'Short' %}selected{% endif %}>Short</option>
+                            <option value="Long" {% if data.atr.direction == 'Long' %}selected{% endif %}>Long</option>
+                            <option value="Short" {% if data.atr.direction == 'Short' %}selected{% endif %}>Short</option>
                         </select>
                     </td>
-                    <td><input type="checkbox" name="enabled_{{ symbol }}" {% if data.monitor_enabled %}checked{% endif %}></td>
+                    <td><input type="checkbox" name="enabled_{{ symbol }}" {% if data.atr.monitor_enabled %}checked{% endif %}></td>
                 </tr>
                 {% endfor %}
             </table>

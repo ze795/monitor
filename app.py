@@ -9,7 +9,7 @@ app.secret_key = 'your-secret-key-here'
 
 # Server configuration
 SERVER_CONFIG = {
-    'host': 'localhost',
+    'host': '192.168.31.228',
     'port': 5000,
     'debug': True
 }
@@ -21,28 +21,359 @@ users = {
 
 # Mock futures data
 futures_data = {
-    'Rebar': {'current_price': 3800.0, 'monitor_price': 3799.0, 'monitor_enabled': False},
-    'Iron Ore': {'current_price': 780.0, 'monitor_price': 778.0, 'monitor_enabled': False},
-    'Coke': {'current_price': 2200.0, 'monitor_price': 2198.0, 'monitor_enabled': False},
-    'Coking Coal': {'current_price': 1500.0, 'monitor_price': 1498.0, 'monitor_enabled': False}
+    'PVC连续': {
+        'symbol': 'V0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '棕榈油连续': {
+        'symbol': 'P0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '豆二连续': {
+        'symbol': 'B0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '豆粕连续': {
+        'symbol': 'M0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '铁矿石连续': {
+        'symbol': 'I0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '塑料连续': {
+        'symbol': 'L0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '聚丙烯连续': {
+        'symbol': 'PP0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '豆油连续': {
+        'symbol': 'Y0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '玉米连续': {
+        'symbol': 'C0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '豆一连续': {
+        'symbol': 'A0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '苯乙烯连续ac': {
+        'symbol': 'EB0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    'PTA连续': {
+        'symbol': 'TA0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '菜油连续': {
+        'symbol': 'OI0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '菜粕连续': {
+        'symbol': 'RM0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '白糖连续': {
+        'symbol': 'SR0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '棉花连续': {
+        'symbol': 'CF0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '甲醇连续': {
+        'symbol': 'MA0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '玻璃连续': {
+        'symbol': 'FG0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '红枣连续': {
+        'symbol': 'CJ0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '纯碱连续': {
+        'symbol': 'SA0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '螺纹钢连续': {
+        'symbol': 'RB0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    },
+    '纸浆连续': {
+        'symbol': 'SP0',
+        'price': {
+            'current_price': 0.0,
+            'monitor_price': 0.0,
+            'monitor_enabled': False
+        },
+        'atr': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        },
+        'pattern': {
+            'direction': 'Long',
+            'monitor_enabled': False
+        }
+    }
 }
-
-# ATR monitoring data
-atr_data = {
-    'Rebar': {'direction': 'Long', 'monitor_enabled': False},
-    'Iron Ore': {'direction': 'Short', 'monitor_enabled': False},
-    'Coke': {'direction': 'Long', 'monitor_enabled': False},
-    'Coking Coal': {'direction': 'Short', 'monitor_enabled': False}
-}
-
-# Pattern monitoring data
-pattern_data = {
-    'Rebar': {'direction': 'Long', 'monitor_enabled': False},
-    'Iron Ore': {'direction': 'Short', 'monitor_enabled': False},
-    'Coke': {'direction': 'Long', 'monitor_enabled': False},
-    'Coking Coal': {'direction': 'Short', 'monitor_enabled': False}
-}
-
 # Log directory
 LOG_DIR = 'logs'
 if not os.path.exists(LOG_DIR):
@@ -83,29 +414,6 @@ def login_required(func):
     wrapper.__name__ = func.__name__
     return wrapper
 
-# Server configuration page
-@app.route('/server_config', methods=['GET', 'POST'])
-@login_required
-def server_config():
-    if request.method == 'POST':
-        SERVER_CONFIG['host'] = request.form.get('host', 'localhost')
-        SERVER_CONFIG['port'] = int(request.form.get('port', 5000))
-        SERVER_CONFIG['debug'] = request.form.get('debug') == 'on'
-        
-        # Save configuration to file
-        with open('server_config.json', 'w') as f:
-            json.dump(SERVER_CONFIG, f)
-            
-        return render_template('server_config.html', config=SERVER_CONFIG, message='Configuration saved! Restart the application to take effect.')
-    
-    # Load configuration from file (if exists)
-    if os.path.exists('server_config.json'):
-        with open('server_config.json', 'r') as f:
-            config = json.load(f)
-            SERVER_CONFIG.update(config)
-    
-    return render_template('server_config.html', config=SERVER_CONFIG)
-
 # Login verification
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -135,19 +443,22 @@ def index():
 @app.route('/price_monitor', methods=['GET', 'POST'])
 @login_required
 def price_monitor():
-    global futures_data
     if request.method == 'POST':
         for symbol in futures_data:
             price = request.form.get(f'price_{symbol}')
+            current_price = request.form.get(f'current_price_{symbol}')
             if price:
-                futures_data[symbol]['monitor_price'] = float(price)
+                futures_data[symbol]['price']['monitor_price'] = float(price)
+            if current_price:
+                futures_data[symbol]['price']['current_price'] = float(current_price)
             enabled = request.form.get(f'enabled_{symbol}')
-            futures_data[symbol]['monitor_enabled'] = enabled == 'on'
+            futures_data[symbol]['price']['monitor_enabled'] = enabled == 'on'
         
         # Check price difference and add log
         for symbol, data in futures_data.items():
-            if data['monitor_enabled']:
-                price_diff = abs(data['current_price'] - data['monitor_price'])
+            price_data = data['price']
+            if price_data['monitor_enabled']:
+                price_diff = abs(price_data['current_price'] - price_data['monitor_price'])
                 if price_diff < 2:
                     logs = get_logs()
                     log_entry = {
@@ -155,7 +466,7 @@ def price_monitor():
                         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                         'type': 'Price Monitoring',
                         'symbol': symbol,
-                        'message': f"{symbol} Price monitor triggered: Current price {data['current_price']}, Monitor price {data['monitor_price']}, Price difference {price_diff:.2f}",
+                        'message': f"{symbol} Price monitor triggered: Current price {price_data['current_price']}, Monitor price {price_data['monitor_price']}, Price difference {price_diff:.2f}",
                         'processed': False
                     }
                     logs.append(log_entry)
@@ -169,18 +480,18 @@ def price_monitor():
 @app.route('/atr_monitor', methods=['GET', 'POST'])
 @login_required
 def atr_monitor():
-    global atr_data
     if request.method == 'POST':
-        for symbol in atr_data:
+        for symbol in futures_data:
             direction = request.form.get(f'direction_{symbol}')
             if direction:
-                atr_data[symbol]['direction'] = direction
+                futures_data[symbol]['atr']['direction'] = direction
             enabled = request.form.get(f'enabled_{symbol}')
-            atr_data[symbol]['monitor_enabled'] = enabled == 'on'
+            futures_data[symbol]['atr']['monitor_enabled'] = enabled == 'on'
         
         # Simulate ATR monitoring logic
-        for symbol, data in atr_data.items():
-            if data['monitor_enabled']:
+        for symbol, data in futures_data.items():
+            atr_data = data['atr']
+            if atr_data['monitor_enabled']:
                 # This is a simulated monitoring logic, to be implemented by the user in practice
                 import random
                 if random.random() < 0.1:  # 10% chance to trigger
@@ -190,7 +501,7 @@ def atr_monitor():
                         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                         'type': 'ATR Monitoring',
                         'symbol': symbol,
-                        'message': f"{symbol} ATR monitor triggered: Direction {data['direction']}",
+                        'message': f"{symbol} ATR monitor triggered: Direction {atr_data['direction']}",
                         'processed': False
                     }
                     logs.append(log_entry)
@@ -198,24 +509,24 @@ def atr_monitor():
         
         return redirect(url_for('atr_monitor'))
     
-    return render_template('atr_monitor.html', atr_data=atr_data)
+    return render_template('atr_monitor.html', futures_data=futures_data)
 
 # Pattern monitoring
 @app.route('/pattern_monitor', methods=['GET', 'POST'])
 @login_required
 def pattern_monitor():
-    global pattern_data
     if request.method == 'POST':
-        for symbol in pattern_data:
+        for symbol in futures_data:
             direction = request.form.get(f'direction_{symbol}')
             if direction:
-                pattern_data[symbol]['direction'] = direction
+                futures_data[symbol]['pattern']['direction'] = direction
             enabled = request.form.get(f'enabled_{symbol}')
-            pattern_data[symbol]['monitor_enabled'] = enabled == 'on'
+            futures_data[symbol]['pattern']['monitor_enabled'] = enabled == 'on'
         
         # Simulate pattern monitoring logic
-        for symbol, data in pattern_data.items():
-            if data['monitor_enabled']:
+        for symbol, data in futures_data.items():
+            pattern_data = data['pattern']
+            if pattern_data['monitor_enabled']:
                 # This is a simulated monitoring logic, to be implemented by the user in practice
                 import random
                 if random.random() < 0.05:  # 5% chance to trigger
@@ -225,7 +536,7 @@ def pattern_monitor():
                         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
                         'type': 'Pattern Monitoring',
                         'symbol': symbol,
-                        'message': f"{symbol} Pattern monitor triggered: Direction {data['direction']}",
+                        'message': f"{symbol} Pattern monitor triggered: Direction {pattern_data['direction']}",
                         'processed': False
                     }
                     logs.append(log_entry)
@@ -233,7 +544,7 @@ def pattern_monitor():
         
         return redirect(url_for('pattern_monitor'))
     
-    return render_template('pattern_monitor.html', pattern_data=pattern_data)
+    return render_template('pattern_monitor.html', futures_data=futures_data)
 
 # Today's logs
 @app.route('/today_logs', methods=['GET', 'POST'])
@@ -268,23 +579,16 @@ def history_logs():
     log_files = [f for f in os.listdir(LOG_DIR) if f.endswith('.json')]
     dates = [f.replace('.json', '') for f in log_files]
     dates.sort(reverse=True)  # Sort by date in descending order
-    
+
     # Default to showing today's logs
     logs = get_logs()
     return render_template('history_logs.html', logs=logs, dates=dates)
 
-# if __name__ == '__main__':
-    # # Load configuration from file (if exists)
-    # if os.path.exists('server_config.json'):
-    #     with open('server_config.json', 'r') as f:
-    #         config = json.load(f)
-    #         SERVER_CONFIG.update(config)
-    
-    # print(f"Server will run at http://{SERVER_CONFIG['host']}:{SERVER_CONFIG['port']}")
-    # app.run(
-    #     host=SERVER_CONFIG['host'],
-    #     port=SERVER_CONFIG['port'],
-    #     debug=SERVER_CONFIG['debug']
-    # )    
 if __name__ == '__main__':
-    app.run(host="192.168.31.228", debug=True)    
+    # Load configuration from file (if exists)
+    print(f"Server will run at http://{SERVER_CONFIG['host']}:{SERVER_CONFIG['port']}")
+    app.run(
+        host=SERVER_CONFIG['host'],
+        port=SERVER_CONFIG['port'],
+        debug=SERVER_CONFIG['debug']
+    )    

@@ -36,9 +36,9 @@
                 {% for symbol, data in futures_data.items() %}
                 <tr>
                     <td>{{ symbol }}</td>
-                    <td>{{ data.current_price }}</td>
-                    <td><input type="text" name="price_{{ symbol }}" value="{{ data.monitor_price }}"></td>
-                    <td><input type="checkbox" name="enabled_{{ symbol }}" {% if data.monitor_enabled %}checked{% endif %}></td>
+                    <td><input type="text" name="current_price_{{ symbol }}" value="{{ data.price.current_price }}"></td>
+                    <td><input type="text" name="price_{{ symbol }}" value="{{ data.price.monitor_price }}"></td>
+                    <td><input type="checkbox" name="enabled_{{ symbol }}" {% if data.price.monitor_enabled %}checked{% endif %}></td>
                 </tr>
                 {% endfor %}
             </table>
