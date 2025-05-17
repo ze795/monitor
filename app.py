@@ -7,7 +7,7 @@ from flask_apscheduler import APScheduler
 from threading import Lock
 import threading
 import time
-import akshare as ak
+from ak import getRealTimeP, ATRCalculator
 
 from log import *
 
@@ -536,10 +536,8 @@ def monitor_atr():
         for symbol, data in futures_data.items():
             atr_data = data['atr']
             if atr_data['monitor_enabled']:
-                # 这里应该是真实的ATR监测逻辑
-                # 示例使用随机触发模拟
-                import random
-                if random.random() < 0.1:  # 10%的触发概率
+                atrCondition = ATRCalculator.atr_cond(symbol, atr_data['direction'])
+                if atrCondition: 
                     log_entry = {
                         'id': len(logs) + 1,
                         'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
@@ -577,7 +575,7 @@ def update_futures_prices():
     with data_lock:
         for symbol in futures_data:
             current_price = 0 # ak
-            current_price = ak.futures_zh_spot(symbol=futures_data[symbol]['symbol'], market="CF", adjust='0')['current_price'][0]
+            current_price = getRealTimeP(symbol=futures_data[symbol]['symbol'])
             if current_price:
                 futures_data[symbol]['price']['current_price'] = float(current_price)
 
